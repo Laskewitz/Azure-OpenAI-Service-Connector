@@ -310,9 +310,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "scale_settings": {
-                  "$ref": "#/definitions/scale_settings"
-                },
                 "model": {
                   "type": "string",
                   "description": "The Azure OpenAI Service model identifier (model-id) to deploy. Can be a base model or a fine tune.",
@@ -327,6 +324,9 @@
                       "api-version": "2022-12-01"
                     }
                   }
+                },
+                "scale_settings": {
+                  "$ref": "#/definitions/scale_settings"
                 }
               },
               "required": [
