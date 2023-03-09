@@ -240,49 +240,7 @@
                 "data": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "scale_settings": {
-                        "type": "object",
-                        "properties": {
-                          "scale_type": {
-                            "type": "string",
-                            "description": "scale_type"
-                          }
-                        },
-                        "description": "scale_settings"
-                      },
-                      "model": {
-                        "type": "string",
-                        "description": "model"
-                      },
-                      "owner": {
-                        "type": "string",
-                        "description": "owner"
-                      },
-                      "id": {
-                        "type": "string",
-                        "description": "id"
-                      },
-                      "status": {
-                        "type": "string",
-                        "description": "status"
-                      },
-                      "created_at": {
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "created_at"
-                      },
-                      "updated_at": {
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "updated_at"
-                      },
-                      "object": {
-                        "type": "string",
-                        "description": "object"
-                      }
-                    }
+                    "$ref": "#/definitions/deployment"
                   },
                   "description": "data"
                 },
@@ -313,6 +271,7 @@
         },
         "summary": "Create deployment",
         "operationId": "CreateDeployment",
+        "description": "Creates a new deployment for the Azure OpenAI resource according to the given specification.",
         "x-ms-visibility": "advanced",
         "parameters": [
           {
@@ -374,9 +333,8 @@
               ]
             }
           }
-        ],
-        "description": "Creates a new deployment for the Azure OpenAI resource according to the given specification."
-      }
+        ]
+            }
     },
     "/openai/deployments/{deployment-id}": {
       "get": {
