@@ -8,7 +8,7 @@
       "name": "Daniel Laskewitz",
       "url": "https://aka.ms/laskewitz",
       "email": "connectorsupport@laskewitz.io"
-    }    
+    }
   },
   "x-ms-connector-metadata": [
     {
@@ -23,14 +23,18 @@
       "propertyName": "Categories",
       "propertyValue": "AI"
     }
-  ],  
+  ],
   "host": "openai.azure.com",
   "basePath": "/",
   "schemes": [
     "https"
   ],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/openai/deployments/{deployment-id}/completions": {
       "post": {
