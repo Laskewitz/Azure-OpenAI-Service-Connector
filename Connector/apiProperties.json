@@ -7,9 +7,9 @@
           "constraints": {
             "required": "true"
           },
-          "description": "Specify the endpoint of your Azure Open AI Service instance (for instance: microsoft when the endpoint is https://microsoft.openai.azure.com/)",
-          "displayName": "Endpoint name",
-          "tooltip": "Specify the endpoint of your Azure Open AI Service instance (for instance: microsoft when the endpoint is https://microsoft.openai.azure.com/)"
+          "description": "Specify the name of your instance (for instance: microsoft when the endpoint is https://microsoft.openai.azure.com/)",
+          "displayName": "Instance name",
+          "tooltip": "Specify the name of your instance (for instance: microsoft when the endpoint is https://microsoft.openai.azure.com/)"
         }
       },
       "api_key": {
