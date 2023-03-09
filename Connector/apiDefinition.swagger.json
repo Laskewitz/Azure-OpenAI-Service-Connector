@@ -10,6 +10,20 @@
       "email": "connectorsupport@laskewitz.io"
     }    
   },
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://azure.microsoft.com/en-us/products/cognitive-services/openai-service"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://privacy.microsoft.com/en-us/privacystatement"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "AI"
+    }
+  ],  
   "host": "openai.azure.com",
   "basePath": "/",
   "schemes": [
