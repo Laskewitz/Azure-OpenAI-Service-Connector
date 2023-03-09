@@ -610,6 +610,7 @@
     "deployment": {
       "name": "deployment-id",
       "in": "path",
+      "x-ms-url-encoding": "single",
       "required": true,
       "type": "string",
       "x-ms-summary": "Deployment",
