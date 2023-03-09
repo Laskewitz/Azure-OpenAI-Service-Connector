@@ -637,42 +637,7 @@
     "createdeployment201": {
       "description": "default",
       "schema": {
-        "type": "object",
-        "properties": {
-          "model": {
-            "type": "string",
-            "description": "model"
-          },
-          "owner": {
-            "type": "string",
-            "description": "owner"
-          },
-          "id": {
-            "type": "string",
-            "description": "id"
-          },
-          "status": {
-            "type": "string",
-            "description": "status"
-          },
-          "created_at": {
-            "type": "integer",
-            "format": "int32",
-            "description": "created_at"
-          },
-          "updated_at": {
-            "type": "integer",
-            "format": "int32",
-            "description": "updated_at"
-          },
-          "scale_settings": {
-            "$ref": "#/definitions/scale_settings"
-          },
-          "object": {
-            "type": "string",
-            "description": "object"
-          }
-        }
+        "$ref": "#/definitions/deployment"
       }
     }
   },
