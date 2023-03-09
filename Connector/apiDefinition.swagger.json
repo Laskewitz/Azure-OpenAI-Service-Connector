@@ -107,35 +107,10 @@
         "x-ms-visibility": "important",
         "parameters": [
           {
-            "name": "deployment-id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "x-ms-summary": "Deployment",
-            "description": "The deployment you want to perform the action on.",
-            "x-ms-dynamic-values": {
-              "operationId": "ListDeployments",
-              "value-path": "id",
-              "value-collection": "data",
-              "value-title": "model",
-              "parameters": {
-                "api-version": "2022-12-01"
-              }
-            },
-            "x-ms-visibility": "important"
+            "$ref": "#/parameters/deployment"
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "default": "2022-12-01",
-            "x-ms-summary": "API version",
-            "description": "The API version to use for this operation.",
-            "x-ms-visibility": "advanced",
-            "enum": [
-              "2022-12-01"
-            ]
+            "$ref": "#/parameters/api-version"
           },
           {
             "name": "body",
@@ -153,8 +128,8 @@
                 "max_tokens": {
                   "type": "integer",
                   "format": "int32",
-                  "description": "The maximum number of tokens to generate in the completion. The token count of your prompt plus max_tokens can't exceed the model's context length. Most models have a context length of 2048 tokens (except davinci-codex, which supports 4096).",
-                  "title": "Max tokens",
+                  "description": "Set a limit on the number of tokens per model response. The API supports a maximum of 2048 tokens shared between the prompt (including system message, examples, message history, and user query) and the model's response. One token is roughly 4 characters for typical English text.",
+                  "title": "Max length (tokens)",
                   "default": 16,
                   "x-ms-visibility": "important"
                 },
@@ -170,7 +145,7 @@
                   "type": "number",
                   "format": "float",
                   "description": "An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
-                  "title": "Top P",
+                  "title": "Top Probabilities",
                   "x-ms-visibility": "advanced",
                   "default": 1
                 },
@@ -214,14 +189,14 @@
                 },
                 "stop": {
                   "type": "string",
-                  "description": "Up to four sequences where the API will stop generating further tokens. The returned text won't contain the stop sequence.",
-                  "title": "Stop",
+                  "description": "Make responses stop at a desired point, such as the end of a sentence or list. Specify up to four sequences where the model will stop generating further tokens in a response. The returned text will not contain the stop sequence.",
+                  "title": "Stop sequences",
                   "x-ms-visibility": "advanced"
                 },
                 "presence_penalty": {
                   "type": "number",
                   "format": "float",
-                  "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.",
+                  "description": "Reduce the chance of repeating any token that has appeared in the text at all so far. This increases the likelihood of introducing new topics in a response. (Number between 0 and 2)",
                   "title": "Presence penalty",
                   "x-ms-visibility": "advanced",
                   "default": 0
@@ -229,7 +204,7 @@
                 "frequency_penalty": {
                   "type": "number",
                   "format": "float",
-                  "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                  "description": "Reduce the chance of repeating a token proportionally based on how often it has appeared in the text so far. This decreases the likelihood of repeating the exact same text in a response.",
                   "title": "Frequency penalty",
                   "x-ms-visibility": "advanced",
                   "default": 0
@@ -325,17 +300,7 @@
         "x-ms-visibility": "advanced",
         "parameters": [
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "default": "2022-12-01",
-            "x-ms-visibility": "internal",
-            "enum": [
-              "2022-12-01"
-            ],
-            "description": "API version of the Azure OpenAI Service",
-            "x-ms-summary": "API Version"
+            "$ref": "#/parameters/api-version"
           }
         ]
       },
@@ -351,17 +316,7 @@
         "x-ms-visibility": "advanced",
         "parameters": [
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "default": "2022-12-01",
-            "enum": [
-              "2022-12-01"
-            ],
-            "x-ms-summary": "API version",
-            "description": "The requested API version.",
-            "x-ms-visibility": "advanced"
+            "$ref": "#/parameters/api-version"
           },
           {
             "name": "body",
@@ -429,49 +384,7 @@
           "200": {
             "description": "default",
             "schema": {
-              "type": "object",
-              "properties": {
-                "scale_settings": {
-                  "type": "object",
-                  "properties": {
-                    "scale_type": {
-                      "type": "string",
-                      "description": "scale_type"
-                    }
-                  },
-                  "description": "scale_settings"
-                },
-                "model": {
-                  "type": "string",
-                  "description": "model"
-                },
-                "owner": {
-                  "type": "string",
-                  "description": "owner"
-                },
-                "id": {
-                  "type": "string",
-                  "description": "id"
-                },
-                "status": {
-                  "type": "string",
-                  "description": "status"
-                },
-                "created_at": {
-                  "type": "integer",
-                  "format": "int32",
-                  "description": "created_at"
-                },
-                "updated_at": {
-                  "type": "integer",
-                  "format": "int32",
-                  "description": "updated_at"
-                },
-                "object": {
-                  "type": "string",
-                  "description": "object"
-                }
-              }
+              "$ref": "#/definitions/models" 
             }
           }
         },
@@ -481,35 +394,10 @@
         "x-ms-visibility": "important",
         "parameters": [
           {
-            "name": "deployment-id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "x-ms-summary": "Deployment",
-            "description": "The deployment you want to perform the action on.",
-            "x-ms-visibility": "important",
-            "x-ms-dynamic-values": {
-              "operationId": "ListDeployments",
-              "value-path": "id",
-              "value-collection": "data",
-              "value-title": "model",
-              "parameters": {
-                "api-version": "2022-12-01"
-              }
-            }
+            "$ref": "#/parameters/deployment"
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "default": "2022-12-01",
-            "x-ms-summary": "API Version",
-            "description": "The requested API version.",
-            "x-ms-visibility": "advanced",
-            "enum": [
-              "2022-12-01"
-            ]
+            "$ref": "#/parameters/api-version"
           }
         ]
       },
@@ -526,28 +414,10 @@
         "x-ms-visibility": "advanced",
         "parameters": [
           {
-            "name": "deployment-id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "x-ms-summary": "Deployment",
-            "x-ms-visibility": "important",
-            "x-ms-dynamic-values": {
-              "operationId": "ListDeployments",
-              "value-path": "id",
-              "value-collection": "data",
-              "value-title": "model",
-              "parameters": {
-                "api-version": "2022-12-01"
-              }
-            },
-            "description": "The deployment you want to perform the action on."
+            "$ref": "#/parameters/deployment"
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/api-version"
           }
         ]
       }
@@ -557,94 +427,8 @@
         "responses": {
           "200": {
             "description": "default",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "capabilities": {
-                        "type": "object",
-                        "properties": {
-                          "fine_tune": {
-                            "type": "boolean",
-                            "description": "fine_tune"
-                          },
-                          "inference": {
-                            "type": "boolean",
-                            "description": "inference"
-                          },
-                          "completion": {
-                            "type": "boolean",
-                            "description": "completion"
-                          },
-                          "embeddings": {
-                            "type": "boolean",
-                            "description": "embeddings"
-                          },
-                          "scale_types": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            },
-                            "description": "scale_types"
-                          }
-                        },
-                        "description": "capabilities"
-                      },
-                      "lifecycle_status": {
-                        "type": "string",
-                        "description": "lifecycle_status"
-                      },
-                      "deprecation": {
-                        "type": "object",
-                        "properties": {
-                          "fine_tune": {
-                            "type": "integer",
-                            "format": "int32",
-                            "description": "fine_tune"
-                          },
-                          "inference": {
-                            "type": "integer",
-                            "format": "int32",
-                            "description": "inference"
-                          }
-                        },
-                        "description": "deprecation"
-                      },
-                      "id": {
-                        "type": "string",
-                        "description": "id"
-                      },
-                      "status": {
-                        "type": "string",
-                        "description": "status"
-                      },
-                      "created_at": {
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "created_at"
-                      },
-                      "updated_at": {
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "updated_at"
-                      },
-                      "object": {
-                        "type": "string",
-                        "description": "object"
-                      }
-                    }
-                  },
-                  "description": "data"
-                },
-                "object": {
-                  "type": "string",
-                  "description": "object"
-                }
-              }
+            "schema": { 
+              "$ref": "#/definitions/models" 
             }
           }
         },
@@ -653,24 +437,191 @@
         "x-ms-visibility": "advanced",
         "parameters": [
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "default": "2022-12-01",
-            "x-ms-summary": "API version",
-            "description": "The requested API version.",
-            "enum": [
-              "2022-12-01"
-            ]
+            "$ref": "#/parameters/api-version"
           }
         ],
         "description": "Gets a list of all models that are accessible by the Azure OpenAI resource. These include base models as well as all successfully completed fine-tuned models owned by the Azure OpenAI resource."
       }
     }
   },
-  "definitions": {},
-  "parameters": {},
+  "definitions": {
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "fine_tune": {
+          "type": "boolean",
+          "description": "fine_tune"
+        },
+        "inference": {
+          "type": "boolean",
+          "description": "inference"
+        },
+        "completion": {
+          "type": "boolean",
+          "description": "completion"
+        },
+        "embeddings": {
+          "type": "boolean",
+          "description": "embeddings"
+        },
+        "scale_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "scale_types"
+        }
+      },
+      "description": "capabilities"
+    },
+    "deployment": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "integer",
+          "format": "int32",
+          "description": "created_at"
+        },
+        "id": {
+          "type": "string",
+          "description": "id"
+        },
+        "model": {
+          "type": "string",
+          "description": "model"
+        },
+        "owner": {
+          "type": "string",
+          "description": "owner"
+        },
+        "status": {
+          "type": "string",
+          "description": "status"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int32",
+          "description": "updated_at"
+        },
+        "object": {
+          "type": "string",
+          "description": "object"
+        }
+      }
+    },
+    "deprecation": {
+      "type": "object",
+      "properties": {
+        "fine_tune": {
+          "type": "integer",
+          "format": "int32",
+          "description": "fine_tune"
+        },
+        "inference": {
+          "type": "integer",
+          "format": "int32",
+          "description": "inference"
+        }
+      },
+      "description": "deprecation"
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "capabilities": {
+          "$ref": "#/definitions/capabilities"
+        },
+        "lifecycle_status": {
+          "type": "string",
+          "description": "lifecycle_status"
+        },
+        "deprecation": {
+          "$ref": "#/definitions/deprecation"
+        },
+        "id": {
+          "type": "string",
+          "description": "id"
+        },
+        "status": {
+          "type": "string",
+          "description": "status"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int32",
+          "description": "created_at"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int32",
+          "description": "updated_at"
+        },
+        "object": {
+          "type": "string",
+          "description": "object"
+        }
+      }
+    },
+    "models": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model"
+          },
+          "description": "data"
+        },
+        "object": {
+          "type": "string",
+          "description": "object"
+        }
+      }
+    },
+    "scale_settings": {
+        "type": "object",
+        "properties": {
+          "scale_type": {
+            "type": "string",
+            "description": "scale_type"
+          }
+        },
+        "description": "scale_settings"
+    }
+  },
+  "parameters": {
+    "api-version": {
+      "name": "api-version",
+      "in": "query",
+      "required": true,
+      "type": "string",
+      "default": "2022-12-01",
+      "x-ms-summary": "API version",
+      "description": "The requested API version.",
+      "x-ms-visibility": "advanced",
+      "enum": [
+        "2022-12-01"
+      ]
+    },
+    "deployment": {
+      "name": "deployment-id",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "x-ms-summary": "Deployment",
+      "description": "The deployment you want to perform the action on.",
+      "x-ms-dynamic-values": {
+        "operationId": "ListDeployments",
+        "value-path": "id",
+        "value-collection": "data",
+        "value-title": "model",
+        "parameters": {
+          "api-version": "2022-12-01"
+        }
+      },
+      "x-ms-visibility": "important"
+    }
+  },
   "responses": {},
   "securityDefinitions": {
     "API Key": {
