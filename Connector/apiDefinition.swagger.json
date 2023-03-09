@@ -29,14 +29,16 @@
                 },
                 "object": {
                   "type": "string",
-                  "description": "Type of model that was used for the completion.",
+                  "description": "The type of model that was used for the completion.",
                   "title": "Object",
                   "x-ms-visibility": "important"
                 },
                 "created": {
                   "type": "integer",
                   "format": "int32",
-                  "description": "created"
+                  "description": "Timestamp of the creation date.",
+                  "title": "Created",
+                  "x-ms-visibility": "advanced"
                 },
                 "model": {
                   "type": "string",
@@ -46,6 +48,7 @@
                 },
                 "choices": {
                   "type": "array",
+                  "description": "Array of choices generated for the prompt.",
                   "items": {
                     "type": "object",
                     "properties": {
@@ -60,7 +63,7 @@
                         "format": "int32",
                         "description": "The index of the predicted completion.",
                         "title": "Index",
-                        "x-ms-visibility": "advanced"
+                        "x-ms-visibility": "important"
                       },
                       "finish_reason": {
                         "type": "string",
@@ -70,32 +73,36 @@
                       },
                       "logprobs": {
                         "type": "string",
-                        "description": "logprobs"
+                        "description": "The probability that the token occurs next given the prompt.",
+                        "title": "Logprobs",
+                        "x-ms-visibility": "advanced"
                       }
                     }
-                  },
-                  "description": "choices"
+                  }
                 },
                 "usage": {
                   "type": "object",
+                  "description": "The tokens used in this request.",
                   "properties": {
                     "completion_tokens": {
                       "type": "integer",
                       "format": "int32",
-                      "description": "completion_tokens"
+                      "description": "The amount of completion tokens used in this request.",
+                      "title": "Completion tokens"
                     },
                     "prompt_tokens": {
                       "type": "integer",
                       "format": "int32",
-                      "description": "prompt_tokens"
+                      "description": "The amount of prompt tokens used in this request.",
+                      "title": "Prompt tokens"
                     },
                     "total_tokens": {
                       "type": "integer",
                       "format": "int32",
-                      "description": "total_tokens"
+                      "description": "The total amount of tokens used in this request.",
+                      "title": "Total tokens"
                     }
-                  },
-                  "description": "usage"
+                  }
                 }
               }
             }
@@ -231,6 +238,10 @@
     },
     "/openai/deployments": {
       "get": {
+        "summary": "List deployments",
+        "description": "List Azure OpenAI Service Deployments",
+        "operationId": "ListDeployments",
+        "x-ms-visibility": "advanced",
         "responses": {
           "200": {
             "description": "default",
@@ -242,20 +253,18 @@
                   "items": {
                     "$ref": "#/definitions/deployment"
                   },
-                  "description": "data"
+                  "title": "Data",
+                  "description": "The list of items."
                 },
                 "object": {
                   "type": "string",
-                  "description": "object"
+                  "title": "Object",
+                  "description": "The type of object."
                 }
               }
             }
           }
         },
-        "summary": "List deployments",
-        "description": "List Azure OpenAI Service Deployments",
-        "operationId": "ListDeployments",
-        "x-ms-visibility": "advanced",
         "parameters": [
           {
             "$ref": "#/parameters/api-version"
@@ -263,16 +272,16 @@
         ]
       },
       "post": {
+        "summary": "Create deployment",
+        "operationId": "CreateDeployment",
+        "description": "Creates a new deployment for the Azure OpenAI resource according to the given specification.",
+        "x-ms-visibility": "advanced",
         "responses": {
           "default": {
             "description": "default",
             "schema": {}
           }
         },
-        "summary": "Create deployment",
-        "operationId": "CreateDeployment",
-        "description": "Creates a new deployment for the Azure OpenAI resource according to the given specification.",
-        "x-ms-visibility": "advanced",
         "parameters": [
           {
             "$ref": "#/parameters/api-version"
@@ -285,35 +294,11 @@
               "type": "object",
               "properties": {
                 "scale_settings": {
-                  "type": "object",
-                  "properties": {
-                    "capacity": {
-                      "type": "integer",
-                      "format": "int32",
-                      "description": "The constant reserved capacity of the inference endpoint for this deployment.",
-                      "title": "Capacity",
-                      "x-ms-visibility": "advanced"
-                    },
-                    "scale_type": {
-                      "type": "string",
-                      "description": "Defines how scaling operations will be executed.",
-                      "title": "Scale type",
-                      "x-ms-visibility": "advanced",
-                      "enum": [
-                        "manual",
-                        "standard"
-                      ],
-                      "default": "standard"
-                    }
-                  },
-                  "description": "scale_settings",
-                  "required": [
-                    "scale_type"
-                  ]
+                  "$ref": "#/definitions/scale_settings"
                 },
                 "model": {
                   "type": "string",
-                  "description": "The OpenAI model identifier (model-id) to deploy. Can be a base model or a fine tune.",
+                  "description": "The Azure OpenAI Service model identifier (model-id) to deploy. Can be a base model or a fine tune.",
                   "title": "Model",
                   "x-ms-visibility": "important",
                   "x-ms-dynamic-values": {
@@ -334,22 +319,22 @@
             }
           }
         ]
-            }
+      }
     },
     "/openai/deployments/{deployment-id}": {
       "get": {
-        "responses": {
-          "200": {
-            "description": "default",
-            "schema": {
-              "$ref": "#/definitions/models" 
-            }
-          }
-        },
         "summary": "Get deployment",
         "operationId": "GetDeployment",
         "description": "Gets details for a single deployment specified by the given deployment.",
         "x-ms-visibility": "important",
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "$ref": "#/definitions/models"
+            }
+          }
+        },
         "parameters": [
           {
             "$ref": "#/parameters/deployment"
@@ -360,16 +345,16 @@
         ]
       },
       "delete": {
+        "summary": "Delete deployment",
+        "description": "Deletes the specified deployment.",
+        "operationId": "DeleteDeployment",
+        "x-ms-visibility": "advanced",
         "responses": {
           "200": {
             "description": "default",
             "schema": {}
           }
         },
-        "summary": "Delete deployment",
-        "description": "/openai/deployments/{deployment-id}?api-version=2022-12-01",
-        "operationId": "DeleteDeployment",
-        "x-ms-visibility": "advanced",
         "parameters": [
           {
             "$ref": "#/parameters/deployment"
@@ -382,141 +367,165 @@
     },
     "/openai/models": {
       "get": {
+        "summary": "List models",
+        "operationId": "ListModels",
+        "description": "Gets a list of all models that are accessible by the Azure OpenAI resource. These include base models as well as all successfully completed fine-tuned models owned by the Azure OpenAI resource.",
+        "x-ms-visibility": "advanced",
         "responses": {
           "200": {
             "description": "default",
-            "schema": { 
-              "$ref": "#/definitions/models" 
+            "schema": {
+              "$ref": "#/definitions/models"
             }
           }
         },
-        "summary": "List models",
-        "operationId": "ListModels",
-        "x-ms-visibility": "advanced",
         "parameters": [
           {
             "$ref": "#/parameters/api-version"
           }
-        ],
-        "description": "Gets a list of all models that are accessible by the Azure OpenAI resource. These include base models as well as all successfully completed fine-tuned models owned by the Azure OpenAI resource."
+        ]
       }
     }
   },
   "definitions": {
     "capabilities": {
+      "title": "Capabilities",
+      "description": "The capabilities of a base or fine tune model.",
       "type": "object",
       "properties": {
         "fine_tune": {
           "type": "boolean",
-          "description": "fine_tune"
+          "title": "Fine tune",
+          "description": "A value indicating whether a model can be used for fine tuning."
         },
         "inference": {
           "type": "boolean",
-          "description": "inference"
+          "title": "Inference",
+          "description": "A value indicating whether a model can be deployed."
         },
         "completion": {
           "type": "boolean",
-          "description": "completion"
+          "title": "Completion",
+          "description": "A value indicating whether a model supports completion."
         },
         "embeddings": {
           "type": "boolean",
-          "description": "embeddings"
+          "title": "Embeddings",
+          "description": "A value indicating whether a model supports embeddings."
         },
         "scale_types": {
           "type": "array",
+          "title": "Scale types",
+          "description": "The supported scale types for deployments of this model.",
           "items": {
             "type": "string"
-          },
-          "description": "scale_types"
+          }
         }
-      },
-      "description": "capabilities"
+      }
     },
     "deployment": {
+      "title": "Deployment",
       "type": "object",
       "properties": {
         "created_at": {
           "type": "integer",
           "format": "int32",
-          "description": "created_at"
+          "title": "Created at",
+          "description": "A timestamp when this job or item was created (in unix epochs)."
         },
         "id": {
           "type": "string",
-          "description": "id"
+          "title": "ID",
+          "description": "The identity of this item."
         },
         "model": {
           "type": "string",
-          "description": "model"
+          "title": "Model",
+          "description": "The OpenAI model identifier (model-id) to deploy. Can be a base model or a fine tune."
         },
         "owner": {
           "type": "string",
-          "description": "owner"
+          "title": "Owner",
+          "description": "The owner of this deployment. For Azure OpenAI only 'organization-owner' is supported."
         },
         "status": {
           "type": "string",
-          "description": "status"
+          "title": "Status",
+          "description": "The state of a job or item."
         },
         "updated_at": {
           "type": "integer",
           "format": "int32",
-          "description": "updated_at"
+          "title": "Updated at",
+          "description": "A timestamp when this job or item was modified last (in unix epochs)."
         },
         "object": {
           "type": "string",
-          "description": "object"
+          "title": "Object",
+          "description": "Defines the type of an object."
         }
       }
     },
     "deprecation": {
+      "title": "Deprecation",
+      "description": "Defines the dates of deprecation for the different use cases of a model. Usually base models support 1 year of fine tuning after creation. Inference is typically supported 2 years after creation of base or fine tuned models. The exact dates are specified in the properties.",
       "type": "object",
       "properties": {
         "fine_tune": {
           "type": "integer",
           "format": "int32",
-          "description": "fine_tune"
+          "title": "Fine tune",
+          "description": "The end date of fine tune support of this model. Will be null for fine tune models."
         },
         "inference": {
           "type": "integer",
           "format": "int32",
-          "description": "inference"
+          "title": "Inference",
+          "description": "The end date of inference support of this model."
         }
-      },
-      "description": "deprecation"
+      }
     },
     "model": {
       "type": "object",
+      "title": "Model",
       "properties": {
         "capabilities": {
           "$ref": "#/definitions/capabilities"
         },
         "lifecycle_status": {
           "type": "string",
-          "description": "lifecycle_status"
+          "title": "Lifecycle status",
+          "description": "The life cycle status of a model. Note: A model can be promoted from 'preview' to 'generally-available', but never from 'generally-available' to 'preview'."
         },
         "deprecation": {
           "$ref": "#/definitions/deprecation"
         },
         "id": {
           "type": "string",
-          "description": "id"
+          "title": "ID",
+          "description": "The identity of this item."
         },
         "status": {
           "type": "string",
-          "description": "status"
+          "title": "Status",
+          "description": "The state of a job or item."
         },
         "created_at": {
           "type": "integer",
           "format": "int32",
-          "description": "created_at"
+          "title": "Created at",
+          "description": "A timestamp when this job or item was created (in unix epochs)."
         },
         "updated_at": {
           "type": "integer",
           "format": "int32",
-          "description": "updated_at"
+          "title": "Updated at",
+          "description": "A timestamp when this job or item was modified last (in unix epochs)."
         },
         "object": {
           "type": "string",
-          "description": "object"
+          "title": "Object",
+          "description": "Defines the type of an object."
         }
       }
     },
@@ -525,26 +534,46 @@
       "properties": {
         "data": {
           "type": "array",
+          "title": "Data",
+          "description": "The list of items.",
           "items": {
             "$ref": "#/definitions/model"
-          },
-          "description": "data"
+          }
         },
         "object": {
           "type": "string",
-          "description": "object"
+          "title": "Object",
+          "description": "Defines the type of an object."
         }
       }
     },
     "scale_settings": {
-        "type": "object",
-        "properties": {
-          "scale_type": {
-            "type": "string",
-            "description": "scale_type"
-          }
+      "type": "object",
+      "title": "Scale settings",
+      "description": "The scale settings of a deployment. It defines the modes for scaling and the reserved capacity.",
+      "properties": {
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The constant reserved capacity of the inference endpoint for this deployment.",
+          "title": "Capacity",
+          "x-ms-visibility": "advanced"
         },
-        "description": "scale_settings"
+        "scale_type": {
+          "type": "string",
+          "description": "Defines how scaling operations will be executed.",
+          "title": "Scale type",
+          "x-ms-visibility": "advanced",
+          "enum": [
+            "manual",
+            "standard"
+          ],
+          "default": "standard"
+        }
+      },
+      "required": [
+        "scale_type"
+      ]
     }
   },
   "parameters": {
