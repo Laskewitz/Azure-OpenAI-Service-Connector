@@ -298,9 +298,8 @@
         "description": "Creates a new deployment for the Azure OpenAI resource according to the given specification.",
         "x-ms-visibility": "advanced",
         "responses": {
-          "default": {
-            "description": "default",
-            "schema": {}
+          "201": {
+            "$ref": "#/responses/createdeployment201"
           }
         },
         "parameters": [
@@ -469,6 +468,9 @@
           "title": "Owner",
           "description": "The owner of this deployment. For Azure OpenAI only 'organization-owner' is supported."
         },
+        "scale_settings": {
+          "$ref": "#/definitions/scale_settings"
+        },
         "status": {
           "type": "string",
           "title": "Status",
@@ -631,7 +633,49 @@
       "x-ms-visibility": "important"
     }
   },
-  "responses": {},
+  "responses": {
+    "createdeployment201": {
+      "description": "default",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "model"
+          },
+          "owner": {
+            "type": "string",
+            "description": "owner"
+          },
+          "id": {
+            "type": "string",
+            "description": "id"
+          },
+          "status": {
+            "type": "string",
+            "description": "status"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int32",
+            "description": "created_at"
+          },
+          "updated_at": {
+            "type": "integer",
+            "format": "int32",
+            "description": "updated_at"
+          },
+          "scale_settings": {
+            "$ref": "#/definitions/scale_settings"
+          },
+          "object": {
+            "type": "string",
+            "description": "object"
+          }
+        }
+      }
+    }
+  },
   "securityDefinitions": {
     "API Key": {
       "type": "apiKey",
